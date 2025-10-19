@@ -40,6 +40,18 @@ export const productApi = createApi({
       }),
       invalidatesTags: ['Products'],
     }),
+    addToFavorites: build.mutation<{ success: boolean; message: string }, string>({
+      query: (id) => ({
+        url: `/products/${id}/favorite`,
+        method: 'POST',
+      }),
+    }),
+    removeFromFavorites: build.mutation<{ success: boolean; message: string }, string>({
+      query: (id) => ({
+        url: `/products/${id}/favorite`,
+        method: 'DELETE',
+      }),
+    }),
   }),
 });
 
@@ -49,4 +61,6 @@ export const {
   useAddProductMutation,
   useUpdateProductMutation,
   useDeleteProductMutation,
+  useAddToFavoritesMutation,
+  useRemoveFromFavoritesMutation,
 } = productApi;

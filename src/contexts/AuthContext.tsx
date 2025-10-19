@@ -1,11 +1,13 @@
 'use client';
 
+import { Iproduct } from '@/app/product/productType';
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
 interface User {
   id: string;
   email: string;
   name: string;
+  favorites: { product: Iproduct; }[];
 }
 
 interface AuthContextType {

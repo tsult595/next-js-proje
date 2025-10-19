@@ -1,4 +1,4 @@
-import { useGetProductsQuery, useAddProductMutation, useUpdateProductMutation, useDeleteProductMutation } from '../app/product/productApi';
+import { useGetProductsQuery, useAddProductMutation, useUpdateProductMutation, useDeleteProductMutation, useAddToFavoritesMutation , useRemoveFromFavoritesMutation  } from '../app/product/productApi';
 import { Iproduct } from '../app/product/productType';
 import { toast } from 'react-toastify';
 
@@ -7,6 +7,8 @@ export const useProductOperations = () => {
   const [addProduct] = useAddProductMutation();
   const [updateProduct] = useUpdateProductMutation();
   const [deleteProduct] = useDeleteProductMutation();
+  const [addToFavorites] = useAddToFavoritesMutation();
+  const [removeFromFavorites] = useRemoveFromFavoritesMutation();
 
   const handleAddProduct = async (productData: Omit<Iproduct, '_id'>) => {
     try {
@@ -46,12 +48,38 @@ export const useProductOperations = () => {
       return false;
     }
   };
+  const handleAddToFavorites = async (id: string) => {
+    try {
+      await addToFavorites(id).unwrap();
+      toast.success('Product added to favorites');
+      return true;
+    } catch (error) {
+      console.error('Add to favorites error:', error);
+      toast.error('Failed to add product to favorites');
+      return false;
+    }
+  };
+  const handleRemoveFromFavorites = async (id: string) => {
+    try {
+      await removeFromFavorites(id).unwrap();
+      toast.success('Product removed from favorites');
+      return true;
+    } catch (error) {
+      console.error('Remove from favorites error:', error);
+      toast.error('Failed to remove product from favorites');
+      return false;
+    }
+  };
 
   return {
     products: data,
     refetch,
     handleAddProduct,
+    handleAddToFavorites,
     handleUpdateProduct,
     handleDeleteProduct,
+    handleRemoveFromFavorites,
   };
 };
+
+

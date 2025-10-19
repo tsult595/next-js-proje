@@ -1,6 +1,7 @@
 import { MongoClient, ServerApiVersion, ObjectId } from 'mongodb';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+import { Iproduct } from '@/app/product/productType';
 
 interface User {
   _id: ObjectId;
@@ -8,6 +9,7 @@ interface User {
   email: string;
   password: string;
   createdAt: Date;
+   favorites: { product: Iproduct; }[];
 }
 
 let cachedClient: MongoClient | null = null;
