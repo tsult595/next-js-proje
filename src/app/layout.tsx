@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Inter, Roboto_Mono } from 'next/font/google';
 import Providers from './store/Providers';
+import { AuthProvider } from '../contexts/AuthContext';
 import './globals.css';
 
 const inter = Inter({
@@ -38,9 +39,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </head>
       <body className={`${inter.variable} ${robotoMono.variable} antialiased gradient-bg`}>
-        <Providers>
-          <main className="py-7 px-5 max-w-7xl mx-auto">{children}</main>
-        </Providers>
+        <AuthProvider>
+          <Providers>
+            <main className="py-7 px-5 max-w-7xl mx-auto">{children}</main>
+          </Providers>
+        </AuthProvider>
       </body>
     </html>
   );

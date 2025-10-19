@@ -7,6 +7,7 @@ export async function GET() {
     const products = await getProducts();
     return NextResponse.json(products, { status: 200 });
   } catch (error) {
+    console.error('Error fetching products:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }
@@ -17,6 +18,7 @@ export async function POST(request: Request) {
     const newProduct = await addProduct(productData);
     return NextResponse.json(newProduct, { status: 201 });
   } catch (error) {
+    console.error('Error adding product:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }

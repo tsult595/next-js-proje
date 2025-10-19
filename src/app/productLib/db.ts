@@ -1,12 +1,12 @@
 
 import { MongoClient, ServerApiVersion, ObjectId } from 'mongodb';
-   import { Iproduct } from '../product/productType';
+import { Iproduct, IproductDB } from '../product/productType';
 
-  let cachedClient: MongoClient | null = null;
+let cachedClient: MongoClient | null = null;
 
 export async function connectToDatabase() {
   if (cachedClient) {
-    return cachedClient.db('next').collection<Iproduct>('products');
+    return cachedClient.db('next').collection<IproductDB>('products');
   }
   const uri = process.env.MONGODB_URI;
   if (!uri) {
@@ -21,7 +21,7 @@ export async function connectToDatabase() {
     await client.connect();
     console.log('Connected to MongoDB');
     cachedClient = client;
-    return client.db('next').collection<Iproduct>('products');
+    return client.db('next').collection<IproductDB>('products');
   } catch (error) {
     console.error('MongoDB connection error:', error);
     throw error;
@@ -38,15 +38,16 @@ export async function getProductById(id: string): Promise<Iproduct | null> {
   const products = await connectToDatabase();
   const result = await products.findOne({ _id: new ObjectId(id) });
   if (result) {
-    result._id = result._id.toString();
+    return { ...result, _id: result._id.toString() };
   }
-  return result;
+  return null;
 }
 
 export async function addProduct(productData: Omit<Iproduct, '_id'>): Promise<Iproduct> {
   const products = await connectToDatabase();
   console.log('Adding product:', productData);
-  const result = await products.insertOne(productData);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const result = await products.insertOne(productData as any);
   console.log('Inserted ID:', result.insertedId);
   const newProduct = { ...productData, _id: result.insertedId.toString() };
   return newProduct;
@@ -54,15 +55,30 @@ export async function addProduct(productData: Omit<Iproduct, '_id'>): Promise<Ip
 
 export async function updateProduct(id: string, updateData: Partial<Iproduct>): Promise<Iproduct | null> {
   const products = await connectToDatabase();
+  console.log('updateProduct called with ID:', id, 'updateData:', updateData);
+  
+  // Validate ObjectId format
+  if (!ObjectId.isValid(id)) {
+    console.error('Invalid ObjectId format:', id);
+    throw new Error('Invalid product ID format');
+  }
+  
+  // Remove _id from updateData if present since we don't want to update the ID
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { _id, ...updateDataWithoutId } = updateData;
+  
   const result = await products.findOneAndUpdate(
     { _id: new ObjectId(id) },
-    { $set: updateData },
+    { $set: updateDataWithoutId },
     { returnDocument: 'after' }
   );
-  if (result.value) {
-    result.value._id = result.value._id.toString();
+  
+  console.log('MongoDB update result:', result);
+  
+  if (result) {
+    return { ...result, _id: result._id.toString() };
   }
-  return result.value;
+  return null;
 }
 
 export async function deleteProduct(id: string): Promise<boolean> {

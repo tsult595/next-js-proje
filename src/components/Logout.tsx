@@ -1,23 +1,18 @@
 'use client';
 
-// import { Button } from '@/components/ui/button';
-// import { useLogoutMutation } from '@/store/auth/authApi';
+import { Button } from './ui/button';
+import { useAuth } from '../contexts/AuthContext';
 
-// export default function Logout() {
-//   const [logout, { isLoading }] = useLogoutMutation();
+export default function Logout() {
+  const { logout } = useAuth();
 
-//   const handleLogout = async () => {
-//     try {
-//       await logout().unwrap();
-//       window.location.href = '/login'; // Или useRouter
-//     } catch (err) {
-//       console.error('Logout failed:', err);
-//     }
-//   };
+  const handleLogout = () => {
+    logout();
+  };
 
-//   return (
-//     <Button onClick={handleLogout} disabled={isLoading}>
-//       {isLoading ? 'Выход...' : 'Выйти'}
-//     </Button>
-//   );
-// }
+  return (
+    <Button onClick={handleLogout} variant="outline">
+      Logout
+    </Button>
+  );
+}
