@@ -58,11 +58,11 @@ export async function PUT(
 
 export async function DELETE(
   request: Request,
-  context: { params: Promise<{ id: string }> }
+  context: { params: Promise<{ idx: string }> }
 ) {
   try {
-    const { id } = await context.params;
-    const deleted = await deleteProduct(id);
+    const { idx } = await context.params;
+    const deleted = await deleteProduct(idx);
     if (!deleted) return NextResponse.json({ error: 'Product not found' }, { status: 404 });
     return NextResponse.json({ message: 'Product deleted' }, { status: 200 });
   } catch (error) {

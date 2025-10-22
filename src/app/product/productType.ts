@@ -8,6 +8,7 @@ export interface Iproduct {
   category: string;
   image: string;
   rating: { rate: number; count: number };
+  isFavorite?: boolean | null;
 }
 
 export interface IproductDB {
@@ -18,4 +19,5 @@ export interface IproductDB {
   category: string;
   image: string;
   rating: { rate: number; count: number };
+   isFavorite?: boolean | null;
 }

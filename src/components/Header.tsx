@@ -1,11 +1,16 @@
+
+
 'use client';
 
 import Link from 'next/link';
 import { Button } from './ui/button';
 import { useAuth } from '../contexts/AuthContext';
+import { MdOutlineFavoriteBorder } from "react-icons/md";
 
 export default function Header() {
   const { user, logout, isLoading } = useAuth();
+  
+  const favoritesCount = user?.favorites?.length || 0;
 
   if (isLoading) {
     return (
@@ -25,6 +30,14 @@ export default function Header() {
             <span className="text-sm text-gray-600 self-center mr-2">
               Welcome, {user.name}
             </span>
+            <div className="relative">
+              <Link href="/favorites" className="flex items-center space-x-1">
+                <MdOutlineFavoriteBorder className="w-5 h-5 sm:w-6 sm:h-6 cursor-pointer text-gray-700 hover:text-black" />
+                <span className="absolute -top-2 -right-2 text-[10px] sm:text-xs font-semibold text-white bg-red-500 rounded-full px-1.5 py-0.5">
+                  {favoritesCount}
+                </span>
+              </Link>
+            </div>
             <Button onClick={logout} variant="outline" size="sm">
               Logout
             </Button>

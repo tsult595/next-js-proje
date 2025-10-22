@@ -9,7 +9,7 @@ interface User {
   email: string;
   password: string;
   createdAt: Date;
-   favorites: { product: Iproduct; }[];
+  favorites: { product: Iproduct; }[];
 }
 
 let cachedClient: MongoClient | null = null;

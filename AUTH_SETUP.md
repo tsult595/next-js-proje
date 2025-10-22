@@ -39,3 +39,4 @@ JWT_SECRET=your-super-secret-jwt-key-change-this-in-production
 - Input validation on both frontend and backend
 - Error handling for duplicate emails
 - Secure token storage in localStorage
+
