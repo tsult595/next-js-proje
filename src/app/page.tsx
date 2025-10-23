@@ -2,7 +2,7 @@
 import {getProducts} from './productLib/db';
 import ProductList from '../components/ProductList';
 import Header from '../components/Header';
-
+import FindNextHouse from '../components/FindNextHouse';
 export default async function Page() {
   try {
     const products = await getProducts();
@@ -10,6 +10,7 @@ export default async function Page() {
       <div>
         <Header />
         <ProductList initialProducts={products} />
+         <FindNextHouse />
       </div>
     );
   } catch (error) {

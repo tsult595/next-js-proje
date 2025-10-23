@@ -23,7 +23,13 @@ export default function Header() {
 
   return (
     <div className="flex justify-between items-center mb-8">
-      <h1 className="text-3xl font-bold text-center text-gray-800">Our Products</h1>
+      <h1 className="text-3xl font-bold text-center text-gray-800">Housing Anywhere</h1>
+      <ul className="flex gap-4">
+        <li>Home</li>
+        <Link href="/about"><li>About</li></Link>
+        <Link href="/add-product"><li className="hover:text-amber-300">Add Product</li></Link> 
+        <Link href="/products"><li>Products</li></Link>
+      </ul>
       <div className="flex gap-2">
         {user ? (
           <>

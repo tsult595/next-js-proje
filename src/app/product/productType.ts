@@ -5,6 +5,7 @@ export interface Iproduct {
   title: string;
   price: number;
   description: string;
+  city : string;
   category: string;
   image: string;
   rating: { rate: number; count: number };
@@ -16,6 +17,7 @@ export interface IproductDB {
   title: string;
   price: number;
   description: string;
+  city : string;
   category: string;
   image: string;
   rating: { rate: number; count: number };

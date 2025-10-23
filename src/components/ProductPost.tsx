@@ -11,8 +11,9 @@ const ProductPost = () => {
   const { handleAddProduct } = useProductOperations();
   const [newProduct, setNewProduct] = useState<Omit<Iproduct, '_id'>>({
     title: '',
-    price: 0,
+    price: null as unknown as number,
     description: '',
+    city: '',
     category: '',
     image: '',
     rating: { rate: 0, count: 0 },
@@ -23,8 +24,9 @@ const ProductPost = () => {
     if (success) {
       setNewProduct({ 
         title: '', 
-        price: 0, 
+        price: null as unknown as number, 
         description: '', 
+        city: '', 
         category: '', 
         image: '', 
         rating: { rate: 0, count: 0 } 
@@ -55,6 +57,12 @@ const ProductPost = () => {
                     placeholder="Description"
                     value={newProduct.description}
                     onChange={(e) => setNewProduct({ ...newProduct, description: e.target.value })}
+                    className="mb-2"
+                  />
+                  <Input
+                    placeholder="City"
+                    value={newProduct.city}
+                    onChange={(e) => setNewProduct({ ...newProduct, city: e.target.value })}
                     className="mb-2"
                   />
                   <Input

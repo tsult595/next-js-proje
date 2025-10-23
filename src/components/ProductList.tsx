@@ -167,6 +167,7 @@ export default function ProductList({ initialProducts }: ProductListProps) {
             <CardContent>
               <p>Price: ${product.price}</p>
               <p>{product.description}</p>
+              <p>City: {product.city}</p>
               <p>Category: {product.category}</p>
               <p>Rating: {product.rating.rate} ({product.rating.count} reviews)</p>
               <div className="flex gap-2 mt-2">

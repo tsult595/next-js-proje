@@ -120,7 +120,7 @@ export const useProductOperations = () => {
   const [deleteProduct] = useDeleteProductMutation();
   const [toggleFavorite] = useToggleFavoriteMutation();
   const { refreshUser } = useAuth();
-  
+
   const handleAddProduct = async (productData: Omit<Iproduct, '_id'>) => {
     try {
       await addProduct(productData).unwrap();
@@ -148,17 +148,23 @@ export const useProductOperations = () => {
   };
 
   const handleDeleteProduct = async (id: string) => {
-    try {
-      await deleteProduct(id).unwrap();
-      toast.success('Product deleted');
-      refetch();
-      return true;
-    } catch (error) {
-      console.error('Delete product error:', error);
-      toast.error('Failed to delete product');
-      return false;
+  try {
+    await deleteProduct(id).unwrap();
+    toast.success('Product deleted');
+    
+    // Обновить данные пользователя после удаления
+    if (refreshUser) {
+      await refreshUser();
     }
-  };
+    
+    refetch();
+    return true;
+  } catch (error) {
+    console.error('Delete product error:', error);
+    toast.error('Failed to delete product');
+    return false;
+  }
+};
 
     const handleToggleFavorite = async (productId: string) => {
     try {

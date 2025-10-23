@@ -17,6 +17,7 @@ export default function ProductDetails() {
     <div className="max-w-3xl mx-auto p-6">
       <h1 className="text-2xl font-bold mb-2">{data.title}</h1>
       <p className="text-gray-600 mb-2">{data.description}</p>
+      <p className="text-gray-600 mb-2">{data.city}</p>
       <p className="text-orange-500 font-semibold mb-4">${data.price}</p>
       <p className="text-gray-700 mb-4">Category: {data.category}</p>
       <p className="text-gray-700 mb-4">Rating: {data.rating.rate} ({data.rating.count} reviews)</p>

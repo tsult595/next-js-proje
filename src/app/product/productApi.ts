@@ -108,6 +108,7 @@ export const productApi = createApi({
         url: `/products/${id}`,
         method: 'PUT',
         body: updateData,
+        
       }),
       invalidatesTags: (result, error, { id }) => [{ type: 'Products', id }, 'Products'],
     }),
