@@ -8,6 +8,8 @@ export interface Iproduct {
   city : string;
   category: string;
   image: string;
+  bedrooms?: number;
+  bathrooms?: number;
   rating: { rate: number; count: number };
   isFavorite?: boolean | null;
 }
@@ -20,6 +22,8 @@ export interface IproductDB {
   city : string;
   category: string;
   image: string;
+   bedrooms?: number;
+  bathrooms?: number;
   rating: { rate: number; count: number };
    isFavorite?: boolean | null;
 }

@@ -11,7 +11,7 @@ const ProductPost = () => {
   const { handleAddProduct } = useProductOperations();
   const [newProduct, setNewProduct] = useState<Omit<Iproduct, '_id'>>({
     title: '',
-    price: null as unknown as number,
+    price: 0,
     description: '',
     city: '',
     category: '',
@@ -24,7 +24,7 @@ const ProductPost = () => {
     if (success) {
       setNewProduct({ 
         title: '', 
-        price: null as unknown as number, 
+        price: 0, 
         description: '', 
         city: '', 
         category: '', 
