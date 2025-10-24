@@ -15,6 +15,11 @@ export default function ProductDetails() {
 
   return (
     <div className="max-w-3xl mx-auto p-6">
+        {data.image ? (
+                <img src={data.image} alt={data.title} />
+              ) : (
+                <p>No image available</p>
+              )}
       <h1 className="text-2xl font-bold mb-2">{data.title}</h1>
       <p className="text-gray-600 mb-2">{data.description}</p>
       <p className="text-gray-600 mb-2">{data.city}</p>

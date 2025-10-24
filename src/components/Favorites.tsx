@@ -61,6 +61,11 @@ export default function FavoritesPage() {
                 </CardHeader>
               </Link>
               <CardContent>
+                {product.image ? (
+                <img src={product.image} alt={product.title} />
+              ) : (
+                <p>No image available</p>
+              )}
                 <p className="font-bold text-lg mb-2">${product.price}</p>
                 <p className="text-gray-600 mb-2">{product.description}</p>
                 <p className="text-sm text-gray-500">Category: {product.category}</p>
